@@ -921,3 +921,74 @@
 
 // console.log(sweetAndSavory(dishes, target));
 
+
+//FOUR NUM SUM
+
+// let num = [3,4,5,7,1,2,10,9,20,15];
+// let target = 30;
+
+// function fourNumSum(num, target){
+//     let allpair = {};
+//     let fourNum = [];
+
+//     for(let i = 1; i < num.length - 1; i++){
+//         for(let j = i + 1; j < num.length; j++){
+//             let currentSum = num[i] + num[j];
+//             let difference = target - currentSum;
+//             if(difference in allpair){
+//                 for(let pair of allpair[difference]){
+//                     fourNum.push(pair.concat([num[i], num[j]]));
+//                 }
+//             }
+//         }
+
+//         for(let k = 0; k < i; k++){
+//             let currentSum = num[i] + num[k];
+//             if(!(currentSum in allpair)){
+//                 allpair[currentSum] = [[num[i], num[k]]];
+//             } else {
+//                 allpair[currentSum].push([num[i], num[k]]);
+//             }
+//         }
+//     }
+
+//     return fourNum;
+// }
+
+// console.log(fourNumSum(num, target));
+
+
+
+let num = [3,4,5,7,1,2,10,9,20,15];
+let target = 30;
+
+function fourNumSum(num, target){
+    let allpair = {};
+    let result = [];
+
+    for(let i = 1; i < num.length - 1; i++){
+        for(let j = i + 1; j < num.length; j++){
+            let currentSum = num[i] + num[j];
+            let difference = target - currentSum;
+            if(difference in allpair){
+                for(let pair of allpair[difference]){
+                    result.push(pair.concat([num[i], num[j]]));
+                }
+            }
+        }
+
+        for(let k = 0; k < i; k++){
+            let currentsum = num[i] + num[k];
+
+            if(!(currentsum in allpair)){
+                allpair[currentsum] = [[num[k], num[i]]];
+            } else {
+                allpair[currentsum].push([num[k], num[i]]);
+            }
+        }
+    }
+
+    return result;
+}
+
+console.log(fourNumSum(num, target));

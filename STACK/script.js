@@ -183,23 +183,50 @@
 
 //NEXT GREATER ELEMENTS
 
-let arr = [-1,5,4,8,2,7];
+// let arr = [-1,5,4,8,2,7];
 
-function nextGreaterElement(array){
-    let result = new Array(array.length).fill(-1);
+// function nextGreaterElement(array){
+//     let result = new Array(array.length).fill(-1);
+//     let stack = [];
+
+//     for(let i = 0; i < 2 * array.length; i++){
+//         let circularIdx = i % array.length;
+
+//         while(stack.length > 0 && array[stack[stack.length - 1]] < array[circularIdx]){
+//             let top = stack.pop();
+//             result[top] = array[circularIdx];
+//         }
+
+//         stack.push(circularIdx);
+//     }
+//     return result;
+// }
+
+// console.log(nextGreaterElement(arr));
+
+//REVERSE POLISH NOTATION
+
+let tokens = ["100", '30', '+', '70', '-'];
+
+function reversePolishNotation(tokens){
     let stack = [];
 
-    for(let i = 0; i < 2 * array.length; i++){
-        let circularIdx = i % array.length;
-
-        while(stack.length > 0 && array[stack[stack.length - 1]] < array[circularIdx]){
-            let top = stack.pop();
-            result[top] = array[circularIdx];
+    for(let token of tokens){
+        if(token === '+'){
+            stack.push(stack.pop() + stack.pop());
+        } else if (token === '-'){
+            let firstnum = stack.pop();
+            stack.push(stack.pop() - firstnum);
+        } else if (token === '*'){
+            stack.push(stack.pop() * stack.pop());
+        } else if (token === '/'){
+            let firstnum = stack.pop();
+            stack.push(Math.trunc(stack.pop() / firstnum));
+        } else {
+            stack.push(parseInt(token));
         }
-
-        stack.push(circularIdx);
     }
-    return result;
+    return stack.pop();
 }
 
-console.log(nextGreaterElement(arr));
+console.log(reversePolishNotation(tokens));
